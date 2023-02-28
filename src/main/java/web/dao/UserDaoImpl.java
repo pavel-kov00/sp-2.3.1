@@ -12,20 +12,20 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+//
+//    private SessionFactory sessionFactory;
+//
+//    @Autowired
+//    public void setSessionFactory(SessionFactory sessionFactory) {
+//        this.sessionFactory = sessionFactory;
+//    }
 
     @PersistenceContext
     private EntityManager entityManager;
     @Override
     public List<User> getall() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from User").list();
+        return entityManager.createQuery("from User", User.class)
+                .getResultList();
     }
 
     @Override
@@ -45,14 +45,14 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void updateUser(User us) {
-//        User user = getUser(id);
-//        user.setName(us.getName());
-//        user.setLastname(us.getLastname());
-//        user.setAge(us.getAge());
-//        user.setEmail(us.getEmail());
-//        user.setRole(us.getRole());
-//        user.setGender(us.getGender());
-        entityManager.merge(us);
+    public void updateUser(User us,int id) {
+        User user = getUser(id);
+        user.setName(us.getName());
+        user.setLastname(us.getLastname());
+        user.setAge(us.getAge());
+        user.setEmail(us.getEmail());
+        user.setRole(us.getRole());
+        user.setGender(us.getGender());
+        entityManager.persist(user);
     }
 }
