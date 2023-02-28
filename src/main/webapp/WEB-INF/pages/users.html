@@ -32,7 +32,10 @@
                 <td th:text = "${user.getRole()}"> </td>
                 <td>
                     <a href="" th:href="@{/edit/{id}(id=${user.id})}">edit</a>
-                    <a href="" th:href="@{/delete/{id}(id=${user.id})}">delete</a>
+                    <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
+<!--                        <a href="" th:href="@{/{id}(id=${user.getId()})}" >delete</a>-->
+                        <button type="submit"> delete</button>
+                    </form>
                 </td>
             </tr>
 
