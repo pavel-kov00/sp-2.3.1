@@ -1,8 +1,5 @@
 package web.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
@@ -34,18 +31,17 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(long id) {
         return entityManager.find(User.class,id);
     }
 
     @Override
-    public void deleteUser(int id) {
-        User user = getUser(id);
-        entityManager.remove(user);
+    public void deleteUser(long id) {
+        entityManager.remove(getUser(id));
     }
 
     @Override
-    public void updateUser(User us,int id) {
+    public void updateUser(User us, long id) {
         User user = getUser(id);
         user.setName(us.getName());
         user.setLastname(us.getLastname());
@@ -54,5 +50,10 @@ public class UserDaoImpl implements UserDao{
         user.setRole(us.getRole());
         user.setGender(us.getGender());
         entityManager.persist(user);
+//        entityManager.persist(us);
+//        просто через entityManager.merge(us); не обновляет, бьюсь уже с эти битую неделю
+//        пишет
+//        Hibernate: select next_val as id_val from hibernate_sequence for update
+//        Hibernate: update hibernate_sequence set next_val= ? where next_val=?
     }
 }

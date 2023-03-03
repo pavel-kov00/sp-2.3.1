@@ -1,14 +1,19 @@
 package web.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users_2")
+//@GenericGenerator(name = "native_generator", strategy = "native")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+//    @GenericGenerator(name = "native_generator", strategy = "native")
+//    @GeneratedValue(generator = "native_generator")
+    private long id;
     private String name;
     private String lastname;
     private int age;
@@ -43,7 +48,7 @@ public class User {
         this.gender = genre;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
