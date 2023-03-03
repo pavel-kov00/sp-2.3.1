@@ -51,7 +51,9 @@ public class UserDaoImpl implements UserDao{
         user.setGender(us.getGender());
         entityManager.persist(user);
 //        entityManager.persist(us);
-//        просто через entityManager.merge(us); не обновляет, бьюсь уже с эти битую неделю
+//        если только вызываю merge(без создания пользователя ) entityManager.merge(us) - то не обновляет,
+//        добавляет новую запись
+//        бьюсь уже с эти битую неделю
 //        пишет
 //        Hibernate: select next_val as id_val from hibernate_sequence for update
 //        Hibernate: update hibernate_sequence set next_val= ? where next_val=?
